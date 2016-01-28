@@ -4,7 +4,9 @@ package com.dengyancheng.birthday;
 import android.app.IntentService;
 import android.content.Intent;
 import android.media.MediaPlayer;
-
+/***
+ * yancheng
+ **/
 public class PlayMusicService extends IntentService {
 	
 	private Thread myThread;
