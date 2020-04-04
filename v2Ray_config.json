@@ -1,0 +1,123 @@
+{
+  "routing" : {
+    "name" : "all_to_main",
+    "domainStrategy" : "AsIs",
+    "rules" : [
+      {
+        "type" : "field",
+        "outboundTag" : "wshk.jingliu.org",
+        "port" : "0-65535"
+      }
+    ]
+  },
+  "inbounds" : [
+    {
+      "listen" : "127.0.0.1",
+      "protocol" : "socks",
+      "settings" : {
+        "ip" : "127.0.0.1",
+        "auth" : "noauth",
+        "udp" : false
+      },
+      "tag" : "socksinbound",
+      "port" : 1081
+    },
+    {
+      "listen" : "127.0.0.1",
+      "protocol" : "http",
+      "settings" : {
+        "timeout" : 0
+      },
+      "tag" : "httpinbound",
+      "port" : 8001
+    }
+  ],
+  "dns" : {
+    "servers" : [
+      "localhost"
+    ]
+  },
+  "log" : {
+    "error" : "\/var\/folders\/g9\/sbdr8jqx7jbg3wd81cf4z2jw0000gn\/T\/cenmrev.v2rayx.log\/error.log",
+    "loglevel" : "none",
+    "access" : "\/var\/folders\/g9\/sbdr8jqx7jbg3wd81cf4z2jw0000gn\/T\/cenmrev.v2rayx.log\/access.log"
+  },
+  "outbounds" : [
+    {
+      "sendThrough" : "0.0.0.0",
+      "mux" : {
+        "enabled" : false,
+        "concurrency" : 8
+      },
+      "protocol" : "vmess",
+      "settings" : {
+        "vnext" : [
+          {
+            "address" : "wshk.jingliu.org",
+            "users" : [
+              {
+                "id" : "8abef2c7-a8c8-40d3-a50c-7707b8d5c4a7",
+                "alterId" : 233,
+                "security" : "auto",
+                "level" : 0
+              }
+            ],
+            "port" : 443
+          }
+        ]
+      },
+      "tag" : "wshk.jingliu.org",
+      "streamSettings" : {
+        "sockopt" : {
+
+        },
+        "quicSettings" : {
+          "key" : "",
+          "security" : "none",
+          "header" : {
+            "type" : "none"
+          }
+        },
+        "tlsSettings" : {
+          "allowInsecure" : false,
+          "alpn" : [
+            "http\/1.1"
+          ],
+          "serverName" : "wshk.jingliu.org",
+          "allowInsecureCiphers" : false
+        },
+        "wsSettings" : {
+          "path" : "\/jblog",
+          "headers" : {
+            "Host" : "wshk.jingliu.org"
+          }
+        },
+        "httpSettings" : {
+          "path" : "",
+          "host" : [
+            ""
+          ]
+        },
+        "tcpSettings" : {
+          "header" : {
+            "type" : "none"
+          }
+        },
+        "kcpSettings" : {
+          "header" : {
+            "type" : "none"
+          },
+          "mtu" : 1350,
+          "congestion" : false,
+          "tti" : 20,
+          "uplinkCapacity" : 5,
+          "writeBufferSize" : 1,
+          "readBufferSize" : 1,
+          "downlinkCapacity" : 20
+        },
+        "security" : "tls",
+        "network" : "ws"
+      }
+    }
+  ]
+}
